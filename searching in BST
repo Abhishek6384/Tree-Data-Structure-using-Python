@@ -1,0 +1,76 @@
+class Binary_Tree:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+    def add_item(self,data):
+        if self.data==data:
+            return 
+        if self.data>data:
+            if self.left:
+                self.left.add_item(data)
+            else:
+                self.left=Binary_Tree(data)
+        elif self.data<data:
+            if self.right:
+                self.right.add_item(data)
+            else:
+                self.right=Binary_Tree(data)
+    def traverse1(self):
+        elements=[]
+        if self.left:
+            elements+=self.left.traverse1()
+        elements.append(self.data)
+        if self.right:
+            elements+=self.right.traverse1()
+        return elements
+    def traverse2(self):
+        elements=[]
+        if self.left:
+            elements+=self.left.traverse2()
+       
+        if self.right:
+            elements+=self.right.traverse2()
+        elements.append(self.data)
+        return elements
+    def traverse3(self):
+        elements=[]
+        elements.append(self.data)
+        if self.left:
+            elements+=self.left.traverse3()
+       
+        if self.right:
+            elements+=self.right.traverse3()
+         
+        return elements
+    def search(self,item):
+        if self.data==item:
+            return 1
+        if self.data>item:
+            if self.left:
+                return self.left.search(item)
+            else:
+                return 0
+        if self.data<item:
+            if self.right:
+                return self.right.search(item)
+            else:
+                return 0
+            
+            
+        
+def construct_tree(l1):
+    root=Binary_Tree(l1[0])
+    for i in range(1,len(l1)):
+        root.add_item(l1[i])
+    return root
+l1=list(map(int,input('enter the elements to insert in the binary tree : ').split()))
+
+root=construct_tree(l1)
+
+
+ans= root.search(item)
+if ans==1:
+    print('item found')
+else:
+    print("item not found")
