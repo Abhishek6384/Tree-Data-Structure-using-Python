@@ -1,0 +1,84 @@
+class Treenode:
+    def __init__(self,desig,name):
+        self.desig=desig
+        self.name=name
+        self.children=[]
+        self.parent=None
+        
+    def add_child(self,child):
+        self.children.append(child)
+        child.parent=self
+        
+    def get_level(self):
+        level=0
+        l=self.parent
+        while(l):
+            level+=1
+            l=l.parent
+        return level
+        
+    def printdata1(self):
+        l=self.get_level()*4
+        prefix=''
+        for i in range(l):
+            prefix+=' '
+        print(prefix,self.name)
+        if self.children:
+            for child in self.children:
+                child.printdata1()
+    def printdata2(self):
+        l=self.get_level()*4
+        prefix=''
+        for i in range(l):
+            prefix+=' '
+        print(prefix, self.desig)
+        if self.children:
+            for child in self.children:
+                child.printdata2()
+    def printdata3(self):
+        l=self.get_level()*4
+        prefix=''
+        for i in range(l):
+            prefix+=' '
+        print(prefix,self.name, self.desig)
+        if self.children:
+            for child in self.children:
+                child.printdata3()
+def build_tree():
+    root=Treenode('CEO','Nilupul')
+    
+    level11=Treenode("CTO",'Chinmay')
+    
+    level21=Treenode("Infrastructure Head","Vishwa")
+    level21.add_child(Treenode("Cloud Manager","Dhaval"))
+    level21.add_child(Treenode("App manager","Abhijeit"))
+
+    level22=Treenode("Application head","Aamir")
+    
+    level11.add_child(level21)
+    level11.add_child(level22)
+    
+    
+    level12=Treenode("HR head",'Gels')
+    
+    level211=Treenode("REcruitment MAnager","PEter")
+    level212=Treenode("Policy manger","Waqas")
+    
+    level12.add_child(level211)
+    level12.add_child(level212)
+    
+    root.add_child(level11)
+    root.add_child(level12)
+    return root
+    
+    
+
+if __name__== '__main__':
+    root=build_tree()
+    choice=int(input("Press 1 for name, 2 for designation,3 for both"))
+    if choice==1:
+        root.printdata1()
+    elif choice==2:
+        root.printdata2()
+    elif choice==3:
+        root.printdata3()
